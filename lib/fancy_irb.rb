@@ -67,8 +67,16 @@ class << FancyIrb
     }
 
     @options = default_options
+    merge_options(user_options)
 
-    default_options.each{ |key, value|
+    # hook code into IRB
+    require 'fancy_irb/irb_ext'
+
+    "Enjoy your FancyIrb :)"
+  end
+  
+  def merge_options(user_options)
+    @options.each{ |key, value|
       # (ugly) 1 level deep merge, maybe refactor
       if key == :colorize
         if user_options.has_key?(:colorize) && user_options[:colorize].nil?
@@ -80,15 +88,10 @@ class << FancyIrb
             end
           }
         end
-      else
-        @options[key] = user_options.has_key?(key) ? user_options[key] : default_options[key]
+      elsif user_options.has_key?(key)
+        @options[key] = user_options[key]
       end
     }
-
-    # hook code into IRB
-    require 'fancy_irb/irb_ext'
-
-    "Enjoy your FancyIrb :)"
   end
 
   def add_output_proc(prepend = false, &proc)

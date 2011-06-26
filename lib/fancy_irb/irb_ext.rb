@@ -24,9 +24,9 @@ module IRB
       }
     end
 
-    def colorize(string, color)
-      if defined?(::Wirb) && color
-        ::Wirb.colorize_string string.to_s, color.to_sym
+    def colorize(string, *color)
+      if defined?(::Wirb) && color.size>0
+        ::Wirb.colorize_string string.to_s, *([color].flatten.compact.map{|c| c.to_sym})
       else
       #  if defined? Wirble
       #    Wirble::Colorize::Color.escape( :nothing ) + string.to_s

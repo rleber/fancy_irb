@@ -1,3 +1,7 @@
+== 0.6.6
+* Generalize IRB interface to Wirb colorization (for compatibility with my Wirb/HighLine interface)
+* Make it easier to update options on the fly, via a merge_options method
+
 == 0.6.5
 * Windows support
 
